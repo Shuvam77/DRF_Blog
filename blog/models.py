@@ -1,7 +1,7 @@
-from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -16,14 +16,14 @@ class Post(models.Model):
 
     class PostObjects(models.Manager):
         def get_queryset(self):
-            return super().get_queryset().filter(status = 'published')
+            return super().get_queryset().filter(status = 'publish')
 
     options =(
         ('draft', 'DRAFT'),
         ('publish', 'PUBLISH')
     )
 
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, default=2)
     title = models.CharField(max_length=250)
     excerpt = models.TextField(null=True)
     content = models.TextField()
@@ -39,3 +39,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     return super().save(*args, **kwargs)
