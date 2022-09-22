@@ -20,7 +20,6 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.postobjects.all()
     serializer_class = PostSerializer
 
-    
 
 class PostDetail(generics.RetrieveAPIView):
     queryset = Post.objects.all()
@@ -28,6 +27,11 @@ class PostDetail(generics.RetrieveAPIView):
 
 
 class PostDelete(generics.DestroyAPIView):
-    queryset = Post.postobjects.all()
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [AuthorOrReadOnly]
+
+class PostUpdate(generics.UpdateAPIView):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [AuthorOrReadOnly]
