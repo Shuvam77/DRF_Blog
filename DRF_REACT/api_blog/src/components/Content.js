@@ -21,7 +21,7 @@ const Content = ({isLoading, posts}) => {
     return (
         <main>
             <h1>Posts</h1>
-            <Loading isLoading={isLoading} posts={Posts} />
+            <Loading isLoading={isLoading} posts={posts} />
         </main>
     );
 }
