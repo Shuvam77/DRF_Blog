@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.utils import timezone
 from django.template.defaultfilters import slugify
 
@@ -29,7 +29,7 @@ class Post(models.Model):
     content = models.TextField()
     slug = models.SlugField(max_length=250, unique_for_date='published')
     published = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'blog_posts')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name = 'blog_posts')
     status = models.CharField(max_length=10, choices=options, default='draft')
     objects = models.Manager() #Default manager
     postobjects = PostObjects() #Custom manager
@@ -40,7 +40,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.title)
-    #     return super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
