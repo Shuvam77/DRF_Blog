@@ -1,12 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import Header from './components/Header';
 import Content from './components/Content';
-import Footer from './components/Footer';
-// import Posts from './components/Posts';
-
-
-// import LoadingComponent from './components/Loading';
 
 import './App.css';
 
@@ -29,10 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Content isLoading={appState.loading} posts={appState.posts}/>
-      <Footer />
-
     </div>
   );
 }
