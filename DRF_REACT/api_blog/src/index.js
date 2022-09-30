@@ -5,6 +5,7 @@ import App from './App';
 import {Route, BrowserRouter, Routes } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -17,6 +18,7 @@ root.render(
         <Route path ="/" element = {<App />}/>
         <Route path='/register' element={ <Register /> }/>
         <Route path='/login' element={ <Login /> }/>
+        <Route path='/logout' element={ <Logout /> }/>
       </Routes>
       <Footer />
     </React.StrictMode>
