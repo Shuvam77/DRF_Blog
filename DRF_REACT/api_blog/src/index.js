@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import {Route, BrowserRouter, Routes } from 'react-router-dom';
 import Register from './components/Register';
+import Login from './components/Login';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -15,6 +16,7 @@ root.render(
       <Routes>
         <Route path ="/" element = {<App />}/>
         <Route path='/register' element={ <Register /> }/>
+        <Route path='/login' element={ <Login /> }/>
       </Routes>
       <Footer />
     </React.StrictMode>
