@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 from django.utils import timezone
 from django.template.defaultfilters import slugify
 
@@ -44,3 +45,6 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("detailcreate", kwargs={"slug":self.slug})

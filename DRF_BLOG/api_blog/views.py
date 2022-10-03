@@ -1,4 +1,6 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
+from rest_framework import viewsets
 from blog.models import Post, Category
 from .serializers import PostSerializer
 from rest_framework import permissions #DjangoModelPermissionsOrAnonReadOnly #DjangoModelPermissions
@@ -22,6 +24,18 @@ class AuthorOrReadOnly(permissions.BasePermission):
     #         return True
     #     return False
 
+# class PostList(viewsets.ModelViewSet):
+#     serializer_class = PostSerializer
+#     permission_classes = [AuthorOrReadOnly]
+
+#     def get_object(self, query=None, **kwargs):
+#         item = self.kwargs.get('pk')
+#         return get_object_or_404(Post, slug=item)
+
+#     def get_queryset(self):
+#         return Post.objects.all()
+    
+
 class PostList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Post.postobjects.all()
@@ -31,17 +45,22 @@ class PostList(generics.ListCreateAPIView):
 class PostDetail(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    lookup_field = 'slug'
 
 
-class PostDelete(generics.DestroyAPIView, AuthorOrReadOnly):
+class PostDelete(AuthorOrReadOnly, generics.DestroyAPIView):
     permission_classes = [AuthorOrReadOnly]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    lookup_field = 'slug'
 
-class PostUpdate(generics.UpdateAPIView, AuthorOrReadOnly):
+
+class PostUpdate(AuthorOrReadOnly, generics.UpdateAPIView):
     permission_classes = [AuthorOrReadOnly]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    lookup_field = 'slug'
+
 
 
 """ Concrete View Classes
@@ -64,3 +83,31 @@ Used for read or delete endpoints to represent a single model instance.
 # RetrieveUpdateDestroyAPIView
 Used for read-write-delete endpoints to represent a single model instance.
 """
+
+
+# class UserViewSet(viewsets.ViewSet):
+#     """
+#     Example empty viewset demonstrating the standard
+#     actions that will be handled by a router class.
+
+#     If you're using format suffixes, make sure to also include
+#     the `format=None` keyword argument for each action.
+#     """
+
+#     def list(self, request):
+#         pass
+
+#     def create(self, request):
+#         pass
+
+#     def retrieve(self, request, pk=None):
+#         pass
+
+#     def update(self, request, pk=None):
+#         pass
+
+#     def partial_update(self, request, pk=None):
+#         pass
+
+#     def destroy(self, request, pk=None):
+#         pass

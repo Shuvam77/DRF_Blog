@@ -10,4 +10,4 @@ class CategorySerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'category','title', 'author', 'excerpt', 'content', 'status')
+        fields = ('id', 'category','title', 'slug', 'author', 'excerpt', 'content', 'status')
