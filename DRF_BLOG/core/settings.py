@@ -202,4 +202,6 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'users.NewUser'
 
+REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema' }
+
 # makemigrations --dry-run
