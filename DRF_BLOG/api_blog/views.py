@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from blog.models import Post, Category
 from .serializers import PostSerializer
 from rest_framework import permissions #DjangoModelPermissionsOrAnonReadOnly #DjangoModelPermissions
-
+from rest_framework import filters
 # Create your views here.
 class AuthorOrReadOnly(permissions.BasePermission):
     message = 'Editing and Deleting posts is restricted to the author only!'
@@ -40,6 +40,13 @@ class PostList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Post.postobjects.all()
     serializer_class = PostSerializer
+    
+    # def get_queryset(self):
+    #     """
+    #     Filters the data as per search query!!
+    #     """
+    #     user = self.request.user
+    #     return Post.objects.filter(author=user)
 
 
 class PostDetail(generics.RetrieveAPIView):
@@ -60,6 +67,22 @@ class PostUpdate(AuthorOrReadOnly, generics.UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
+
+
+class PostSearch(generics.ListAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=slug']
+
+
+    # '^' Starts-with search
+    # '=' Exact matches
+    # '@' Full-text search
+    # '$' Regex search
+ 
+
+## Also try django-filter later on in this project
 
 
 
