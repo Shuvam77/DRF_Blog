@@ -73,7 +73,7 @@ class PostSearch(generics.ListAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
     filter_backends = [filters.SearchFilter]
-    search_fields = ['=slug']
+    search_fields = ['^slug']
 
 
     # '^' Starts-with search

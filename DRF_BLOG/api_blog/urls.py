@@ -10,7 +10,7 @@ urlpatterns = [
     path('delete/<slug:slug>/', PostDelete.as_view(), name='deletepost'),
     path('update/<slug:slug>/', PostUpdate.as_view(), name='updatepost'),
     path('', PostList.as_view(), name='listcreate'),
-    path('search/', PostSearch.as_view(), name='postsearch'),
+    path('search/custom/', PostSearch.as_view(), name='postsearch'),
 ]
 
 # router = DefaultRouter()

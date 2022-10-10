@@ -3,10 +3,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
+// import SearchBar from 'material-ui-search-bar';
+// import { useNavigation } from 'react-router-dom';
 
 const useStyle = makeStyles((theme)=>({
     appBar: {
@@ -23,6 +25,15 @@ const useStyle = makeStyles((theme)=>({
 const Header = () => {
 
     const classes = useStyle();
+	// let navigate = useNavigation();
+	// const [data, setData] = useState({search: ''});
+	// const goSearch = (e) => {
+	// 	navigate(
+	// 		'/search/',
+	// 		{state: {search: '?search='+data.search}}
+	// 	);
+	// 	window.location.reload();
+	// };
 
     return (
 		<React.Fragment>
@@ -49,6 +60,11 @@ const Header = () => {
 							Blog
 						</Link>
 					</Typography>
+					{/* <SearchBar
+						value={data.search}
+						onChange={(newValue) => setData({ search: newValue })}
+						onRequestSearch={() => goSearch(data.search)}
+					/> */}
 					<nav>
 						<Link
 							color="textPrimary"
